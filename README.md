@@ -1,12 +1,77 @@
 # Grupo1_TP_Unidad2
 
-## Interfaz responsiva
+Proyecto desarrollado para la **Tarea N.º 1 de la Unidad 2 — Diseño de flujo de pantallas inicial (menúes y Splashscreen)** de la materia **Desarrollo de Videojuegos**.
 
-Configuración usada para que la UI se adapte a distintas resoluciones (issue #7):
+## Integrantes
 
-- **Canvas Scaler** (aplicado en `MainMenu` y `Bootstrap`; recomendado para el resto de las escenas): `UI Scale Mode = Scale With Screen Size`, `Reference Resolution = 1920 x 1080`, `Screen Match Mode = Match Width Or Height`, `Match = 0.5`. Con 0.5 la UI escala a mitad de camino entre ancho y alto, así no se corta ni en 16:9 ni en 4:3.
-- **Anchors**: los paneles de fondo van en *stretch* completo; el título se ancla al borde superior (0.5, 1); el bloque de botones al centro (0.5, 0.5); el botón *Continuar* de la Splashscreen al borde inferior (0.5, 0). Así cada elemento se mueve con el borde que le corresponde en vez de quedar fijo en píxeles.
-- **Layout Groups**: los botones del menú principal viven dentro de `Container_Buttons` con un `Vertical Layout Group` (spacing 20, alineación Middle Center, sin control de tamaño de hijos) para que mantengan orden y separación sin posicionarlos a mano.
-- **Prefab `Button_Base`** (`Assets/_Project/Prefabs/UI/`): botón de 320 x 64 con texto TMP; todas las instancias comparten tamaño y estados visuales (normal / highlighted / pressed / selected). Los botones del menú principal usan ese mismo tamaño; su reemplazo por variantes del prefab corresponde a la issue #12.
+* **Matias Escobar**
+* **Luca Depetris**
+* **Lucas Fischer**
 
-Para probar: en la Game view cambiar entre `1920x1080`, `1280x720` y una relación `4:3`; no debe quedar ningún elemento fuera del área visible.
+## Descripción
+
+El objetivo de la tarea es diseñar e implementar la estructura inicial de navegación de un proyecto desarrollado en **Unity**, incluyendo una Splashscreen, un menú principal, una pantalla de opciones, una sección de créditos y una escena de Gameplay navegable.
+
+El proyecto utiliza una arquitectura basada en **escenas independientes**, junto con un sistema de navegación centralizado mediante `UIManager`. También se aplican criterios de reutilización de componentes mediante prefabs y técnicas de diseño de UI responsiva utilizando `Canvas Scaler`, anchors y `Layout Groups`.
+
+Para el desarrollo colaborativo se utiliza **GitHub**, mediante ramas, Issues, Pull Requests y una rama `develop` destinada a la integración de los cambios.
+
+## Tecnología
+
+* **Unity:** 6.3.17f
+* **Lenguaje:** C#
+* **Interfaz:** Unity UI / TextMeshPro
+* **Control de versiones:** Git / GitHub
+
+## Estructura de navegación
+
+Las principales escenas del proyecto son:
+
+* `Bootstrap` — Splashscreen inicial.
+* `MainMenu` — Menú principal.
+* `Options` — Pantalla de opciones.
+* `Credits` — Créditos del proyecto.
+* `Gameplay` — Escena de juego 3D.
+
+## Documentación
+
+Toda la documentación correspondiente a la Tarea N.º 1 se encuentra en [`Docs`](Docs).
+
+* [Informe de la Tarea N.º 1](Docs/Informe.md)
+* [Diagramas de navegación](Docs/Diagramas.md)
+* [Capturas del proyecto](Docs/Capturas.md)
+
+## Estructura del repositorio
+
+```text
+Grupo1_TP_Unidad2/
+├── Assets/
+│   └── _Project/
+│       ├── Prefabs/
+│       ├── Scenes/
+│       └── Scripts/
+├── Docs/
+│    ├── Informe/
+│    ├── Diagramas/
+│    └── Capturas/
+├── .gitignore
+└── README.md
+```
+
+## Flujo de trabajo
+
+El desarrollo colaborativo se organiza mediante tres niveles principales de ramas:
+
+```text
+main
+  ↓
+develop
+  ↓
+feature/*
+```
+
+* `main`: versión estable del proyecto.
+* `develop`: rama de integración.
+* `feature/*`: ramas utilizadas para desarrollar tareas específicas.
+
+Los cambios se incorporan mediante **Pull Requests**, permitiendo mantener organizada la integración del trabajo de los integrantes.
