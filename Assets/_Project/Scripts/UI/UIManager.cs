@@ -32,6 +32,12 @@ public class UIManager : MonoBehaviour
     public void QuitToMainMenu() => LoadScene(SceneMainMenu);
 
     /// <summary>
+    /// Vuelve a cargar la escena actual (por ejemplo, el boton
+    /// "Reiniciar" del panel de victoria en Gameplay).
+    /// </summary>
+    public void ReloadCurrentScene() => LoadScene(SceneManager.GetActiveScene().name);
+
+    /// <summary>
     /// Cierra la aplicación. En el Editor detiene el Play Mode
     /// en vez de cerrar Unity.
     /// </summary>
