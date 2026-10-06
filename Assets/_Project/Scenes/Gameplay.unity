@@ -529,7 +529,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1780218820825588427, guid: fee41d6e170c1614da73f8a263aa052e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 913079034}
   m_SourcePrefab: {fileID: 100100000, guid: fee41d6e170c1614da73f8a263aa052e, type: 3}
 --- !u!1 &167684899
 GameObject:
@@ -758,6 +761,14 @@ PrefabInstance:
     - target: {fileID: 9015189451107171595, guid: c9ffb3737f6bc3941aa799d9bc7ecbfa, type: 3}
       propertyPath: m_text
       value: "Volver al men\xFA"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015189451107171595, guid: c9ffb3737f6bc3941aa799d9bc7ecbfa, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015189451107171595, guid: c9ffb3737f6bc3941aa799d9bc7ecbfa, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1580,11 +1591,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7330566337292493576, guid: 3e25646708fb0fb4dacfd883766342c1, type: 3}
   m_PrefabInstance: {fileID: 869353092}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &913079027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1780218820825588427, guid: fee41d6e170c1614da73f8a263aa052e, type: 3}
+  m_PrefabInstance: {fileID: 122203475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &913079033 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4963932121732475372, guid: fee41d6e170c1614da73f8a263aa052e, type: 3}
   m_PrefabInstance: {fileID: 122203475}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &913079034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913079027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239281989906d23489dcb708ebbe2abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLockOnGameOver
+  scoreManager: {fileID: 1006030578}
 --- !u!1 &955992509
 GameObject:
   m_ObjectHideFlags: 0
