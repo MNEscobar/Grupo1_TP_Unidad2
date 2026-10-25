@@ -70,22 +70,33 @@ public class PopupManager : MonoBehaviour
     private void HandleRequested(PopupRequest request)
     {
         PopupView popup = pool.Get();
+
         popup.Show(
             request.Title,
             request.Message,
-            () => Close(popup, request.AcceptCommand),
-            () => Close(popup, request.CancelCommand),
+            () => Close(popup, request, request.AcceptCommand),
+            () => Close(popup, request, request.CancelCommand),
             request.IsModal);
     }
 
     /// <summary>
-    /// Primero devuelve la ventana al pool y después ejecuta el comando:
-    /// si el comando cambia de escena, el pop-up ya quedó liberado.
-    /// Un comando null (por ejemplo, Cancelar sin acción) solo cierra.
+    /// Devuelve la ventana al pool, notifica su cierre para restaurar el estado del juego 
+    /// y finalmente ejecuta el comando asociado. 
+    /// Ejecutar el comando al final asegura que el pop-up ya esté liberado en caso de un cambio de escena. 
+    /// Un comando null (por ejemplo, Cancelar sin acción) simplemente cerrará el pop-up.
     /// </summary>
-    private void Close(PopupView popup, ICommand command)
+    private void Close(
+    PopupView popup,
+    PopupRequest request,
+    ICommand command)
     {
+        // Oculta y devuelve la instancia al pool.
         pool.Release(popup);
+
+        // Notifica el cierre para restaurar el estado del juego.
+        popupEvent.NotifyClosed(request);
+
+        // Ejecuta el comando después de restaurar el estado.
         command?.Execute();
     }
 
