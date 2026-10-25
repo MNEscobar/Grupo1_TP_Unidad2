@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,9 @@ using UnityEngine.UI;
 /// Se ejecuta desde Tools > Grupo1 > Crear Popup_Base. Se puede correr más
 /// de una vez: el prefab se vuelve a generar sobre el mismo path, así que
 /// conserva su GUID y no se rompen las referencias.
+///
+/// Tools > Grupo1 > Setup PopupManager agrega el PopupManager a las escenas
+/// que muestran pop-ups (MainMenu y Gameplay), dentro de [Managers].
 /// </summary>
 public static class PopupSetup
 {
@@ -20,6 +24,15 @@ public static class PopupSetup
     private const string PopupPrefabPath = UIPrefabsFolder + "/Popup_Base.prefab";
     private const string ButtonBasePrefabPath = UIPrefabsFolder + "/Button_Base.prefab";
     private const string ButtonCancelPrefabPath = UIPrefabsFolder + "/Variants/Button_Cancel.prefab";
+    private const string PopupEventPath = "Assets/_Project/ScriptableObjects/PopupEvent.asset";
+
+    private static readonly string[] PopupScenePaths =
+    {
+        "Assets/_Project/Scenes/MainMenu.unity",
+        "Assets/_Project/Scenes/Gameplay.unity",
+    };
+
+    private const string PopupManagerName = "PopupManager";
 
     // 900 de ancho entra tanto en 16:9 (canvas ~1920x1080) como en 9:16
     // (canvas ~1080x1920) con el CanvasScaler del proyecto (Match 0.5).
@@ -76,6 +89,61 @@ public static class PopupSetup
 
         Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(PopupPrefabPath);
         Debug.Log($"[PopupSetup] Listo: prefab generado en {PopupPrefabPath}.");
+    }
+
+    /// <summary>
+    /// Crea (o vuelve a crear) el PopupManager de cada escena y le asigna
+    /// el canal de eventos, el prefab y el Canvas donde instanciar.
+    /// </summary>
+    [MenuItem("Tools/Grupo1/Setup PopupManager")]
+    public static void SetupPopupManager()
+    {
+        // Si hay cambios sin guardar en la escena abierta, se le pregunta
+        // al usuario antes de cambiar de escena.
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            return;
+
+        foreach (string scenePath in PopupScenePaths)
+            SetupScene(scenePath);
+
+        Debug.Log("[PopupSetup] Listo: PopupManager agregado en MainMenu y Gameplay.");
+    }
+
+    private static void SetupScene(string scenePath)
+    {
+        var scene = EditorSceneManager.OpenScene(scenePath);
+
+        // Los assets se cargan después de abrir la escena: OpenScene descarga
+        // los assets que no usa nadie y una referencia cargada antes queda
+        // inválida (se guardaría como None en el Inspector).
+        PopupEventSO popupEvent = AssetDatabase.LoadAssetAtPath<PopupEventSO>(PopupEventPath);
+        GameObject popupPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PopupPrefabPath);
+        if (popupEvent == null || popupPrefab == null)
+        {
+            Debug.LogError("[PopupSetup] Falta PopupEvent.asset o Popup_Base.prefab (correr antes Crear Popup_Base).");
+            return;
+        }
+
+        Transform canvas = FindInScene("Canvas");
+        if (canvas == null)
+        {
+            Debug.LogError($"[PopupSetup] No se encontró el Canvas en {scenePath}.");
+            return;
+        }
+
+        DestroyIfExists(PopupManagerName);
+
+        GameObject managerGO = new GameObject(PopupManagerName);
+        Transform managers = FindInScene("[Managers]");
+        if (managers != null) managerGO.transform.SetParent(managers, false);
+
+        PopupManager manager = managerGO.AddComponent<PopupManager>();
+        SetRef(manager, "popupEvent", popupEvent);
+        SetRef(manager, "popupPrefab", popupPrefab.GetComponent<PopupView>());
+        SetRef(manager, "popupParent", canvas);
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
     }
 
     // ------------------------------------------------------------------
@@ -162,6 +230,30 @@ public static class PopupSetup
         rect.anchorMax = Vector2.one;
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
+    }
+
+    /// <summary>
+    /// Busca un objeto por nombre en la escena activa, incluyendo los
+    /// inactivos (GameObject.Find solo encuentra los activos).
+    /// </summary>
+    private static Transform FindInScene(string name)
+    {
+        var roots = EditorSceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject root in roots)
+        {
+            foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+            {
+                if (t.name == name) return t;
+            }
+        }
+        return null;
+    }
+
+    private static void DestroyIfExists(string name)
+    {
+        Transform t;
+        while ((t = FindInScene(name)) != null)
+            Object.DestroyImmediate(t.gameObject);
     }
 
     private static void SetButtonText(GameObject button, string text)
