@@ -10,6 +10,7 @@ using UnityEngine;
 public class PopupEventSO : ScriptableObject
 {
     public event Action<PopupRequest> Requested;
+    public event Action<PopupRequest> Closed;
 
     public void Raise(PopupRequest request)
     {
@@ -27,5 +28,10 @@ public class PopupEventSO : ScriptableObject
         }
 
         Requested.Invoke(request);
+    }
+    public void NotifyClosed(PopupRequest request)
+    {
+        if (request != null)
+            Closed?.Invoke(request);
     }
 }
