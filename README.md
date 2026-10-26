@@ -50,50 +50,79 @@ Las principales escenas del proyecto son:
 
 Toda la documentación correspondiente al Proyecto se encuentra en [`Docs`](Docs).
 
-* [Informe de la Tarea N.º 1](Docs/Informe.md)
+* [Informes](Docs/Informe.md)
 * [Diagramas de navegación](Docs/Diagramas.md)
 * [Capturas del proyecto](Docs/Capturas.md)
 * [Gameplay](Docs/Gameplay.md)
 * [Diseño Responsivo](Docs/ui_responsive.md)
+* [Patrones de Diseño](Docs/Patrones.md)
 
 ## Estructura del repositorio
 
 ```text
 Grupo1_TP_Unidad2/
 ├── Assets/
-│    └── _Project/
-│        ├── Materials/
-│        ├── Prefabs/
-│        │   ├── Gameplay/
-│        │   │   ├── Collectible.prefab
-│        │   │   ├── Player.prefab
-│        │   │   └── Variants/
-│        │   │       └── Collectible_Gold.prefab
-│        │   └── UI/
-│        │       ├── Button_Base.prefab
-│        │       └── Variants/
-│        │           ├── Button_Back.prefab
-│        │           ├── Button_Cancel.prefab
-│        │           ├── Button_Credits.prefab
-│        │           ├── Button_Options.prefab
-│        │           ├── Button_Play.prefab
-│        │           └── Button_Quit.prefab
-│        ├── Scenes/
-│        │   ├── Bootstrap.unity
-│        │   ├── Credits.unity
-│        │   ├── Gameplay.unity
-│        │   ├── MainMenu.unity
-│        │   └── Options.unity
-│        └── Scripts/
-│            ├── Editor/
-│            ├── Gameplay/
-│            └── UI/
+│   └── _Project/
+│       ├── Materials/
+│       ├── Prefabs/
+│       │   ├── Gameplay/
+│       │   │   ├── Collectible.prefab
+│       │   │   ├── Player.prefab
+│       │   │   └── Variants/
+│       │   │       └── Collectible_Gold.prefab
+│       │   └── UI/
+│       │       ├── Button_Base.prefab
+│       │       ├── Popup_Base.prefab
+│       │       └── Variants/
+│       │           ├── Button_Back.prefab
+│       │           ├── Button_Cancel.prefab
+│       │           ├── Button_Credits.prefab
+│       │           ├── Button_Options.prefab
+│       │           ├── Button_Play.prefab
+│       │           └── Button_Quit.prefab
+│       ├── Scenes/
+│       │   ├── Bootstrap.unity
+│       │   ├── Credits.unity
+│       │   ├── Gameplay.unity
+│       │   ├── MainMenu.unity
+│       │   └── Options.unity
+│       ├── ScriptableObjects/
+│       │   └── PopupEvent.asset
+│       └── Scripts/
+│           ├── Commands/
+│           │   ├── GoToMainMenuCommand.cs
+│           │   ├── ICommand.cs
+│           │   ├── QuitApplicationCommand.cs
+│           │   └── ReloadSceneCommand.cs
+│           ├── Editor/
+│           │   ├── GameplaySetup.cs
+│           │   ├── PopupSetup.cs
+│           │   └── UIValidator.cs
+│           ├── Events/
+│           │   ├── PopupEventSO.cs
+│           │   └── PopupRequest.cs
+│           ├── Gameplay/
+│           │   ├── CameraFollow.cs
+│           │   ├── Collectible.cs
+│           │   ├── GameManager.cs
+│           │   ├── GameplayHUD.cs
+│           │   ├── PlayerController.cs
+│           │   ├── PlayerLockOnGameOver.cs
+│           │   └── ScoreManager.cs
+│           └── UI/
+│               ├── ExitConfirmationRequester.cs
+│               ├── OptionsController.cs
+│               ├── PopupManager.cs
+│               ├── PopupView.cs
+│               ├── SplashController.cs
+│               └── UIManager.cs
 ├── Docs/
-│    ├── Informe.md
-│    ├── Diagramas.md
-│    └── Capturas.md
-│    └── Gameplay.md
-│    └── ui_responsive.md
+│   ├── Capturas.md
+│   ├── Diagramas.md
+│   ├── Gameplay.md
+│   ├── Informe.md
+│   ├── Patrones.md
+│   └── ui_responsive.md
 ├── .gitignore
 └── README.md
 ```
