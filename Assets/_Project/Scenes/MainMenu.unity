@@ -491,20 +491,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7995958496989532861, guid: 083fe1d58b8283148b9e2faaa00d7cd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995958496989532861, guid: 083fe1d58b8283148b9e2faaa00d7cd5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1793903694}
+      objectReference: {fileID: 1155806717}
     - target: {fileID: 7995958496989532861, guid: 083fe1d58b8283148b9e2faaa00d7cd5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7995958496989532861, guid: 083fe1d58b8283148b9e2faaa00d7cd5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: QuitApplication
+      value: RequestExit
       objectReference: {fileID: 0}
     - target: {fileID: 7995958496989532861, guid: 083fe1d58b8283148b9e2faaa00d7cd5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: ExitConfirmationRequester, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995958496989532861, guid: 083fe1d58b8283148b9e2faaa00d7cd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1060,6 +1068,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5311391468990994403, guid: e7292adef9e0da74c85ccc04e7f27a85, type: 3}
   m_PrefabInstance: {fileID: 460375860}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1155806715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155806716}
+  - component: {fileID: 1155806717}
+  m_Layer: 0
+  m_Name: ExitConfirmationRequester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155806716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155806715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1633875236}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155806717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155806715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a89b5c9c65371a4f8c6548fb329c741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitConfirmationRequester
+  popupEvent: {fileID: 11400000, guid: 8f4959ad00f49a2418b49f97702776b2, type: 2}
+  uiManager: {fileID: 1793903694}
 --- !u!1 &1633875235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1145,7 @@ Transform:
   m_Children:
   - {fileID: 1793903693}
   - {fileID: 390774032}
+  - {fileID: 1155806716}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793903692
