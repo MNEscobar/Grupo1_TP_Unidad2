@@ -5,8 +5,8 @@
 Para rastrear el ciclo de vida del evento `AllCollected` desde su suscripción hasta su disparo al recolectar el último ítem, se configuraron los siguientes puntos de interrupción en Visual Studio:
 
 * **`ScoreManager.cs`**:
-  * **Línea 52:** Evaluación de la condición `remaining <= 0` dentro del método `HandleCollected(Collectible)` para comprobar el momento en que se alcanza el total de coleccionables[cite: 2].
-  * **Línea 53:** Invocación del evento `AllCollected?.Invoke()` para identificar el instante exacto en que se notifica a los suscriptores[cite: 3, 4, 5].
+  * **Línea 52:** Evaluación de la condición `remaining <= 0` dentro del método `HandleCollected(Collectible)` para comprobar el momento en que se alcanza el total de coleccionables.
+  * **Línea 53:** Invocación del evento `AllCollected?.Invoke()` para identificar el instante exacto en que se notifica a los suscriptores.
 * **`GameplayHUD.cs`**:
   * **Línea 25:** Suscripción `scoreManager.AllCollected += ShowWinPanel` dentro de `OnEnable()`.
   * **Línea 52:** Entrada al método `ShowWinPanel()`, antes de que la línea 54 ejecute `winPanel.SetActive(true)`.
@@ -22,7 +22,7 @@ Para rastrear el ciclo de vida del evento `AllCollected` desde su suscripción h
 ## 2. Seguimiento del Flujo en la Pila de Llamadas (Call Stack)
 
 ### A. Detección de Colisión y Condición de Victoria
-Al recoger el último coleccionable en escena, el motor físico dispara `Collectible:OnTriggerEnter(Collider)` en `Collectible.cs` (línea 46), el cual invoca a `ScoreManager:HandleCollected(Collectible)`[cite: 2]. La ejecución se pausa en la **línea 52** de `ScoreManager.cs` para evaluar si quedan objetos restantes (`remaining <= 0`).
+Al recoger el último coleccionable en escena, el motor físico ejecuta `Collectible:OnTriggerEnter(Collider)`. En la línea 46 de `Collectible.cs`, este método dispara el evento estático `Collectible.Collected`, al que está suscripto `ScoreManager:HandleCollected(Collectible)`. La ejecución se pausa en la **línea 52** de `ScoreManager.cs` para evaluar si quedan objetos restantes (`remaining <= 0`).
 
 > ![Comprobación de condición en ScoreManager](https://drive.google.com/uc?export=view&id=1w2KsOsE6UGoziquaKttrBqRvVTTKZrzl)
 
@@ -63,7 +63,13 @@ En las tres capturas de los suscriptores se observa cómo la base de la pila de 
 **No.** Cada uno de los tres métodos suscriptores se ejecuta exactamente una sola vez cuando `remaining <= 0` dispara el evento. Esto confirma que las suscripciones con el operador `+=` se realizaron correctamente una única vez en `OnEnable()`, sin generar duplicaciones en la lista de invocación del delegado.
 
 ### 3. ¿Alguno no responde?
-No se observaron excepciones ni referencias nulas durante el flujo analizado. Los tres receptores ejecutaron su lógica. Console de Unity durante la prueba: __ (sin mensajes / mensajes observados: …). Con el Debugger se verificó que `winPanel`, `controller` y `body` no eran nulos en sus receptores: __.
+Los tres receptores ejecutaron su lógica en el flujo analizado.
+
+* **Console de Unity durante la prueba:** vacía, sin mensajes.
+* **Valores en el Debugger:** `winPanel`, `controller` y `body` tenían valor al llegar a sus receptores.
+* **Resultado en Unity:** el panel de victoria quedó visible y el jugador quedó bloqueado.
 
 ### 4. ¿Aparece alguna excepción o referencia nula?
-**No se registra ninguna excepción ni referencia nula (`NullReferenceException`).** El uso del operador condicional nulo en `AllCollected?.Invoke()` asegura una llamada segura desde el emisor, todas las referencias internas de los receptores están correctamente asignadas en el Inspector y el depurador de Visual Studio reporta el estado *"No se encontraron problemas"* a lo largo de toda la cadena de ejecución.
+**No.** La Console quedó vacía, el flujo llegó a los tres receptores sin detenerse por una excepción y las referencias revisadas con el Debugger tenían valor.
+
+El operador condicional nulo de `AllCollected?.Invoke()` solo evita el error cuando el evento no tiene suscriptores; no protege el código interno de cada receptor.
