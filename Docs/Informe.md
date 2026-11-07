@@ -4,3 +4,6 @@
 
 
 - [Documentación: Parte A - Primer Parcial](https://drive.google.com/file/d/1vccE7OwWTw4ntvC-3OZuGNx3f4bz300y/view?usp=sharing)
+
+
+- [Informe de depuración del evento AllCollected](Informe_Depuracion.md)
