@@ -121,7 +121,9 @@ Grupo1_TP_Unidad2/
 │   ├── Diagramas.md
 │   ├── Gameplay.md
 │   ├── Informe.md
+│   ├── Informe_Depuracion.md
 │   ├── Patrones.md
+│   ├── Test_Depuracion.md
 │   └── ui_responsive.md
 ├── .gitignore
 └── README.md
