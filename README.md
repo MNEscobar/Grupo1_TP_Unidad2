@@ -7,6 +7,14 @@ Proyecto desarrollado para la la materia **Diseño y Desarrollo de Videojuegos 2
 * **Matias Escobar**
 * **Luca Depetris**
 
+
+## Segundo Examen Parcial
+
+Documentación técnica y presentación práctica correspondiente a la evaluación de arquitectura, patrones de diseño y depuración avanzada en Unity.
+
+* **Informe Técnico (Parte A):** [Ver documento en Google Drive](https://docs.google.com/document/d/1Mij8lhYXV7aQX8X6MM0zlg3CUhNpSmTW/edit?usp=sharing&ouid=113574952751855851904&rtpof=true&sd=true)
+* **Video Presentación (Parte B):** [Ver video en Google Drive](https://drive.google.com/file/d/1sO6keDvOnAMnsq2bS02FVhXDnThn8nQb/view?usp=sharing)
+
 ## Descripción
 
 El proyecto implementa la estructura de navegación de un juego desarrollado en **Unity**, incluyendo una Splashscreen, un menú principal, una pantalla de opciones, una sección de créditos y una escena de Gameplay jugable.
